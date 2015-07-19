@@ -62,12 +62,23 @@
     </header>
     <div class="entry">
       
-        <h3 id="打开终端输入">打开终端输入</h3><pre><code>ssh-keygen -t rsa  
-</code></pre><h3 id="指定存储路径">指定存储路径</h3><p><img src="https://raw.githubusercontent.com/OFFFIELD/PHOTOS/master/Git/SSH/git_ssh_path.jpeg" alt="git_ssh_path"></p>
-<h3 id="完成后前往文件夹">完成后前往文件夹</h3><p><img src="https://raw.githubusercontent.com/OFFFIELD/PHOTOS/master/Git/SSH/git_ssh_finder.jpeg" alt="git_ssh_finder"></p>
-<h3 id="用记事本打开id_rsa-pub_复制全部内容（SSH_Key）">用记事本打开id_rsa.pub 复制全部内容（SSH Key）</h3><p><img src="https://raw.githubusercontent.com/OFFFIELD/PHOTOS/master/Git/SSH/git_ssh_idrsa.jpeg" alt="git_ssh_idrsa"></p>
-<h3 id="打开Github设置页面">打开Github设置页面</h3><p><img src="https://raw.githubusercontent.com/OFFFIELD/PHOTOS/master/Git/SSH/git_ssh_githubsettings.jpeg" alt="git_ssh_githubsettings"></p>
-<h3 id="添加SSH_Key">添加SSH Key</h3><p><img src="https://raw.githubusercontent.com/OFFFIELD/PHOTOS/master/Git/SSH/git_ssh_addssh.jpeg" alt="git_ssh_addssh"></p>
+        <ol>
+<li><p>打开终端输入</p>
+<pre><code>ssh-keygen -t rsa  
+</code></pre></li>
+<li><p>打开Finder前往文件夹</p>
+<pre><code>~<span class="regexp">/.ssh/id</span>_rsa.pub
+</code></pre></li>
+<li><p>用记事本打开id_rsa.pub 复制全部内容（SSH Key）</p>
+<pre><code><span class="comment">//例子 瞎拼的 ssh-rsa开头.local结尾</span>
+ssh-rsa LKJLJHGJKGKYUH293189273MHJKKJH<span class="regexp">/2wmCm3cQvKm2KnacXCZ7EEfsDOtfHXuSmRyiLmPzyhJbAkG0b1tE+HR1vAz5MnLd0O/</span>oz8N2K<span class="regexp">/jijjkhsdjhkjweh72382367jmnbxkdajsd/</span>sZD2Hyqhw4Fh+DJCOlE+LKJHGHJKGKYUTGHBNWVE67567HJGJHhfghfJHGFBNCVMVFGHFJFJHGFJHGF78675123HJGKHJGKJHG/ZhiDa<span class="annotation">@yangzhidadeMacBook</span>-Pro.local
+</code></pre></li>
+</ol>
+<ol>
+<li><p>打开Github设置页面个人设置界面(Settings) - 点击Add SSH Key </p>
+<pre><code><span class="comment">//Nothing...    </span>
+</code></pre></li>
+</ol>
 
       
     </div>
