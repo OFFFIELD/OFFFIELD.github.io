@@ -62,11 +62,76 @@
     </header>
     <div class="entry">
       
-        <ul>
-<li>还没写<a id="more"></a>
+        <p>修饰符用法以及常见问题<br><a id="more"></a></p>
+<h3 id="修饰符">修饰符</h3><ul>
+<li><p>readwrite</p>
+<h4 id="由系统创建setter&amp;getter方法，默认值为readwrite，即property属性默认创建setter&amp;getter方法">由系统创建setter&amp;getter方法，默认值为readwrite，即property属性默认创建setter&amp;getter方法</h4><pre><code><span class="keyword">@property</span> (<span class="keyword">readwrite</span>) <span class="built_in">NSObject</span> *mObj;
+</code></pre></li>
+</ul>
+<ul>
+<li><p>readonly</p>
+<h4 id="由系统自动创建getter方法，不创建setter方法">由系统自动创建getter方法，不创建setter方法</h4><pre><code><span class="keyword">@property</span> (<span class="keyword">readonly</span>) <span class="built_in">NSObject</span> *mObj;
+</code></pre></li>
+<li><p>@synthesize </p>
+<h4 id="Xcode4-5之后可以不写">Xcode4.5之后可以不写</h4><pre><code><span class="comment">//在类成员变量中查找mObj和_mObj,若都没有，自动生成私有变量_mObj;</span>
+<span class="variable">@synthesize</span> mObj;
+
+<span class="comment">//如果想重新定义变量名</span>
+<span class="variable">@synthesize</span>  mObj = _mObjPrivate;
+</code></pre></li>
+<li><p>setter &amp; getter</p>
+<h4 id="重写setter或getter方法，覆盖readwrite或readonly所创建对应的方法">重写setter或getter方法，覆盖readwrite或readonly所创建对应的方法</h4><pre><code><span class="comment">//ViewController.h</span>
+
+<span class="preprocessor">#import <span class="title">&lt;UIKit/UIKit.h&gt;</span></span>
+
+<span class="class"><span class="keyword">@interface</span> <span class="title">ViewController</span> : <span class="title">UIViewController</span></span>
+
+<span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>, getter = mGetNum, setter = mSetNum:) <span class="built_in">NSNumber</span> *num;
+
+<span class="keyword">@end</span>
+
+<span class="comment">//ViewController.m</span>
+
+<span class="class"><span class="keyword">@interface</span> <span class="title">ViewController</span> ()</span>
+{
+   <span class="comment">//重新定义了setter和getter，@synthesize就会失效，需要重新定义私有变量</span>
+   <span class="built_in">NSNumber</span> *_num;
+}
+
+<span class="keyword">@end</span>
+
+<span class="class"><span class="keyword">@implementation</span> <span class="title">ViewController</span></span>
+
+- (<span class="keyword">void</span>)viewDidLoad
+{
+  [<span class="keyword">super</span> viewDidLoad];
+
+  <span class="comment">//只有用点语法才会调用setter方法</span>
+  <span class="keyword">self</span><span class="variable">.num</span> = @<span class="number">2</span>;
+
+  <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,<span class="keyword">self</span><span class="variable">.num</span>);
+}
+
+<span class="comment">//setter和getter里不可以用点语法，会导致死循环</span>
+- (<span class="keyword">void</span>)mSetNum:(<span class="built_in">NSNumber</span> *)num
+{
+      _num = num;
+}
+
+- (<span class="built_in">NSNumber</span> *)mGetNum
+{
+   <span class="keyword">return</span> _num;
+}
+
+<span class="keyword">@end</span>
+</code></pre></li>
+<li><p>getter相关修饰符assign,retain,copy,weak,strong</p>
 </li>
 </ul>
-<h1 id="真的还没写">真的还没写</h1>
+<ul>
+<li>atomic &amp; nonatomic</li>
+</ul>
+
       
     </div>
     <footer>
