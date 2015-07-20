@@ -125,11 +125,43 @@
 
 <span class="keyword">@end</span>
 </code></pre></li>
-<li><p>getter相关修饰符assign,retain,copy,weak,strong</p>
-</li>
+<li><p>assign</p>
+<h4 id="修饰基础类型：id,NSInteger,CGFloat,int,long,float,double…">修饰基础类型：id,NSInteger,CGFloat,int,long,float,double…</h4></li>
+<li><p>weak</p>
+<h4 id="弱引用，当所指向对象没有其他强引用，weak所修饰的指针自动置为nil，避免循环引用">弱引用，当所指向对象没有其他强引用，weak所修饰的指针自动置为nil，避免循环引用</h4></li>
+<li><p>strong(ARC),retain(MRC)</p>
+<h4 id="指针拷贝，引用计数+1，可用于NSObject所有子类">指针拷贝，引用计数+1，可用于NSObject所有子类</h4></li>
+<li><p>copy  </p>
+<h4 id="可用于实现了NSCoying,NSMutablecopying的对象，内容拷贝，原对象引用计数不变，创建新对象，与原对象互不干扰">可用于实现了NSCoying,NSMutablecopying的对象，内容拷贝，原对象引用计数不变，创建新对象，与原对象互不干扰</h4><h4 id="iOS_Developer_Library:Copying_Collections"><a href="https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/Collections/Articles/Copying.html" target="_blank" rel="external">iOS Developer Library:Copying Collections</a></h4></li>
 </ul>
-<ul>
-<li>atomic &amp; nonatomic</li>
+<pre><code>@interface <span class="keyword">Man</span> : NSObject
+@property (strong, nonatomic) NSString *nameStrong;
+@property (copy, nonatomic) NSString *nameCopy;
+@end
+
+- (void)test
+{
+  NSMutableString *manName = <span class="comment">[NSMutableString stringWithString:@"Tom"]</span>;
+
+  <span class="keyword">Man</span> *<span class="keyword">man</span> = <span class="comment">[<span class="comment">[Man alloc]</span> init]</span>;
+
+   <span class="keyword">man</span>.nameStrong = manName;
+
+   <span class="keyword">man</span>.nameCopy = manName;
+
+  <span class="comment">[manName setString:@"Jack"]</span>;
+
+   //输出结果为Jack
+   NSLog(@<span class="string">"man name %@"</span>, <span class="keyword">man</span>.nameStrong);
+
+   //输出结果为Tom
+   NSLog(@<span class="string">"man name %@"</span>, <span class="keyword">man</span>.nameCopy);
+}
+</code></pre><ul>
+<li><p>atomic </p>
+<h4 id="提供多线程安全,防止多线程操作数据出错，防止在写入未完成的时候被另外一个线程读取，造成数据错误">提供多线程安全,防止多线程操作数据出错，防止在写入未完成的时候被另外一个线程读取，造成数据错误</h4></li>
+<li><p>nonatomic</p>
+<h4 id="如果不需要多线程操作，采用此修饰符可以提高性能">如果不需要多线程操作，采用此修饰符可以提高性能</h4></li>
 </ul>
 
       
