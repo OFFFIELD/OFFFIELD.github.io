@@ -67,8 +67,6 @@
 <li><p>readwrite</p>
 <h4 id="由系统创建setter&amp;getter方法，默认值为readwrite，即property属性默认创建setter&amp;getter方法">由系统创建setter&amp;getter方法，默认值为readwrite，即property属性默认创建setter&amp;getter方法</h4><pre><code><span class="keyword">@property</span> (<span class="keyword">readwrite</span>) <span class="built_in">NSObject</span> *mObj;
 </code></pre></li>
-</ul>
-<ul>
 <li><p>readonly</p>
 <h4 id="由系统自动创建getter方法，不创建setter方法">由系统自动创建getter方法，不创建setter方法</h4><pre><code><span class="keyword">@property</span> (<span class="keyword">readonly</span>) <span class="built_in">NSObject</span> *mObj;
 </code></pre></li>
@@ -132,9 +130,7 @@
 <li><p>strong(ARC),retain(MRC)</p>
 <h4 id="指针拷贝，引用计数+1，可用于NSObject所有子类">指针拷贝，引用计数+1，可用于NSObject所有子类</h4></li>
 <li><p>copy  </p>
-<h4 id="可用于实现了NSCoying,NSMutablecopying的对象，内容拷贝，原对象引用计数不变，创建新对象，与原对象互不干扰">可用于实现了NSCoying,NSMutablecopying的对象，内容拷贝，原对象引用计数不变，创建新对象，与原对象互不干扰</h4><h4 id="iOS_Developer_Library:Copying_Collections"><a href="https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/Collections/Articles/Copying.html" target="_blank" rel="external">iOS Developer Library:Copying Collections</a></h4></li>
-</ul>
-<pre><code>@interface <span class="keyword">Man</span> : NSObject
+<h4 id="可用于实现了NSCoying,NSMutablecopying的对象，内容拷贝，原对象引用计数不变，创建新对象，与原对象互不干扰">可用于实现了NSCoying,NSMutablecopying的对象，内容拷贝，原对象引用计数不变，创建新对象，与原对象互不干扰</h4><h4 id="iOS_Developer_Library:Copying_Collections"><a href="https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/Collections/Articles/Copying.html" target="_blank" rel="external">iOS Developer Library:Copying Collections</a></h4><pre><code>@interface <span class="keyword">Man</span> : NSObject
 @property (strong, nonatomic) NSString *nameStrong;
 @property (copy, nonatomic) NSString *nameCopy;
 @end
@@ -157,11 +153,58 @@
    //输出结果为Tom
    NSLog(@<span class="string">"man name %@"</span>, <span class="keyword">man</span>.nameCopy);
 }
-</code></pre><ul>
+</code></pre><h4 id="注意">注意</h4><pre><code>@property<span class="function"> (</span>copy<span class="function">)</span> NSMutableArray *array;
+
+//这样写会报错：-<span class="keyword">[</span>__NSArrayI addObject:]: unrecognized selector sent to<span class="instruction"> instance </span>0x100107090
+
+//NSMutableArray添加copy属性就变成了NSArray
+
+//因为NSMutableArray继承自NSArray,调用其CopyWithZone方法，return值为NSArray类型，可以为NSMutableArray添加Category实现深拷贝
+</code></pre><h4 id="自定义深拷贝">自定义深拷贝</h4><pre><code><span class="comment">//  NSMutableArray+Custom.m</span>
+
+<span class="preprocessor">#import <span class="title">"NSMutableArray+Custom.h"</span></span>
+
+<span class="class"><span class="keyword">@implementation</span> <span class="title">NSMutableArray</span> (<span class="title">Custom</span>)</span>
+
+- (<span class="built_in">NSMutableArray</span> *)mutableDeepCopy
+{
+   <span class="built_in">NSMutableArray</span> *marr = [[<span class="built_in">NSMutableArray</span> alloc] initWithCapacity:[<span class="keyword">self</span> count]];
+
+   <span class="keyword">for</span> (<span class="keyword">id</span> value <span class="keyword">in</span> <span class="keyword">self</span>)
+   {
+       <span class="keyword">id</span> aCopy = <span class="literal">nil</span>;
+
+       <span class="keyword">if</span> ([value respondsToSelector:<span class="keyword">@selector</span>(mutableDeepCopy)])
+       {
+           aCopy = [value mutableDeepCopy];
+       }
+       <span class="keyword">else</span> <span class="keyword">if</span> ([value respondsToSelector:<span class="keyword">@selector</span>(mutableCopy)])
+       {
+           aCopy = [value mutableCopy];
+       }
+
+       <span class="keyword">if</span> (aCopy == <span class="literal">nil</span>)
+       {
+           aCopy = [value <span class="keyword">copy</span>];
+       }
+
+       [marr addObject: aCopy];
+   }
+
+   <span class="keyword">return</span> marr;
+}
+
+<span class="keyword">@end</span>
+</code></pre><h4 id="深拷贝">深拷贝</h4><pre><code><span class="built_in">NSArray</span> *arr = @[@<span class="number">1</span>,@<span class="number">2</span>];
+
+<span class="built_in">NSArray</span> *arrCopy = [[<span class="built_in">NSArray</span> alloc] initWithArray:arr copyItems:<span class="literal">YES</span>];
+
+   <span class="built_in">NSArray</span>* arrCopy2 = [<span class="built_in">NSKeyedUnarchiver</span> unarchiveObjectWithData: [<span class="built_in">NSKeyedArchiver</span> archivedDataWithRootObject:arr]];
+</code></pre></li>
 <li><p>atomic </p>
 <h4 id="提供多线程安全,防止多线程操作数据出错，防止在写入未完成的时候被另外一个线程读取，造成数据错误">提供多线程安全,防止多线程操作数据出错，防止在写入未完成的时候被另外一个线程读取，造成数据错误</h4></li>
 <li><p>nonatomic</p>
-<h4 id="如果不需要多线程操作，采用此修饰符可以提高性能">如果不需要多线程操作，采用此修饰符可以提高性能</h4></li>
+<h4 id="如果不需要多线程操作，采用此修饰符可以提高性能">如果不需要多线程操作，采用此修饰符可以提高性能</h4><h4 id="Stackoverflow：nonatomic-copy-strong-weak"><a href="http://stackoverflow.com/questions/9859719/objective-c-declared-property-attributes-nonatomic-copy-strong-weak" target="_blank" rel="external">Stackoverflow：nonatomic-copy-strong-weak</a></h4></li>
 </ul>
 
       
