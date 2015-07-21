@@ -71,12 +71,14 @@
 <h4 id="由系统自动创建getter方法，不创建setter方法">由系统自动创建getter方法，不创建setter方法</h4><pre><code><span class="keyword">@property</span> (<span class="keyword">readonly</span>) <span class="built_in">NSObject</span> *mObj;
 </code></pre></li>
 <li><p>@synthesize </p>
-<h4 id="Xcode4-5之后可以不写">Xcode4.5之后可以不写</h4><pre><code><span class="comment">//在类成员变量中查找mObj和_mObj,若都没有，自动生成私有变量_mObj;</span>
+<h4 id="Xcode4-5之后可以不写">Xcode4.5之后可以不写</h4><h4 id="子类想调用父类变量，需要用这个在子类声明一下，因为子类里没有@property">子类想调用父类变量，需要用这个在子类声明一下，因为子类里没有@property</h4><pre><code><span class="comment">//在类成员变量中查找mObj和_mObj,若都没有，自动生成私有变量_mObj;</span>
 <span class="variable">@synthesize</span> mObj;
 
 <span class="comment">//如果想重新定义变量名</span>
 <span class="variable">@synthesize</span>  mObj = _mObjPrivate;
 </code></pre></li>
+<li><p>@@dynamic</p>
+<h4 id="告诉编译器不要自动生成setter&amp;getter">告诉编译器不要自动生成setter&amp;getter</h4></li>
 <li><p>setter &amp; getter</p>
 <h4 id="重写setter或getter方法，覆盖readwrite或readonly所创建对应的方法">重写setter或getter方法，覆盖readwrite或readonly所创建对应的方法</h4><pre><code><span class="comment">//ViewController.h</span>
 
