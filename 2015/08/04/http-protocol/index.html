@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>SSH Key(Mac) | Pt.Ker</title>
+  <title>HTTP - Protocol | Pt.Ker</title>
   <meta name="author" content="Copyright (c) 2015年 杨志达. All rights reserved.">
   
   <meta name="description" content="iOS Developer Yang">
@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="SSH Key(Mac)"/>
+  <meta property="og:title" content="HTTP - Protocol"/>
   <meta property="og:site_name" content="Pt.Ker"/>
 
   
@@ -54,33 +54,76 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2015-07-18T07:37:17.000Z"><a href="/2015/07/18/SSH-Key/">2015-07-18</a></time>
+        <time datetime="2015-08-04T15:06:15.000Z"><a href="/2015/08/04/http-protocol/">2015-08-04</a></time>
       
       
   
-    <h1 class="title">SSH Key(Mac)</h1>
+    <h1 class="title">HTTP - Protocol</h1>
   
 
     </header>
     <div class="entry">
       
-        <p>添加SSH-Key到Github<br><a id="more"></a></p>
-<ol>
-<li><p>打开终端输入</p>
-<pre><code>ssh-keygen -t rsa  
+        <p>数据协议初稿<br><a id="more"></a></p>
+<h2 id="字段命名（KEY）">字段命名（KEY）</h2><ul>
+<li>字母全部小写，包括英文简称，单词之间用英文格式”_”分开，控制在3个单词之内</li>
+<li>命名与其功能，含义尽量一致或接近，避免number1,number2这种命名</li>
+<li>其它待补充</li>
+</ul>
+<h2 id="统计字段：">统计字段：</h2><ul>
+<li>放在User-Agent或以接口参数方式传给服务端</li>
+</ul>
+<pre><code>统计内容 |<span class="string"> key </span>|<span class="string"> value 
+------------ </span>|<span class="string"> ------------- </span>|<span class="string"> ------------ 
+系统平台 </span>|<span class="string"> platform  </span>|<span class="string"> iOS/Android/WP 
+分发渠道 </span>|<span class="string"> channel </span>|<span class="string"> AppStore/百度/腾讯/小米/安智 
+程序版本 </span>|<span class="string">  version </span>|<span class="string"> 1.0.0 
+设备型号 </span>|<span class="string">deviceid  </span>|<span class="string"> iPhone/iPad/iPod/Andriod 
+用户ID (用户信息统计)</span>|<span class="string">  user_id</span>|<span class="string"> xxxx </span>
+</code></pre><h2 id="枚举">枚举</h2><ul>
+<li><p>均以1为起始，避免以int接收0时，无法确定是否正常接收</p>
+</li>
+<li><p>多选，发送端value = MyEnumValueA &amp; MyEnumValueB，接收端 BOOL isValueA = MyEnumValueA ^ value</p>
+<pre><code>typedef NS_OPTIONS(NSUInteger, MyEnum) {
+    <span class="variable">MyEnumValueA =</span> <span class="number">1</span> &lt;&lt; <span class="number">1</span>,
+    <span class="variable">MyEnumValueB =</span> <span class="number">1</span> &lt;&lt; <span class="number">2</span>,
+    <span class="variable">MyEnumValueC =</span> <span class="number">1</span> &lt;&lt; <span class="number">3</span>,
+};
 </code></pre></li>
-<li><p>打开Finder前往文件夹</p>
-<pre><code>~<span class="regexp">/.ssh/id</span>_rsa.pub
+<li><p>单选</p>
+<pre><code><span class="keyword">typedef</span> <span class="built_in">NS_ENUM</span>(<span class="built_in">NSUInteger</span>, MyEnum) {
+   MyEnumValueA = <span class="number">1</span>,
+   MyEnumValueB,
+   MyEnumValueC,
+};
 </code></pre></li>
-<li><p>用记事本打开id_rsa.pub 复制全部内容（SSH Key）</p>
-<pre><code><span class="comment">//例子 瞎拼的 ssh-rsa开头.local结尾</span>
-ssh-rsa LKJLJHGJKGKYUH293189273MHJKKJH<span class="regexp">/2wmCm3cQvKm2KnacXCZ7EEfsDOtfHXuSmRyiLmPzyhJbAkG0b1tE+HR1vAz5MnLd0O/</span>oz8N2K<span class="regexp">/jijjkhsdjhkjweh72382367jmnbxkdajsd/</span>sZD2Hyqhw4Fh+DJCOlE+LKJHGHJKGKYUTGHBNWVE67567HJGJHhfghfJHGFBNCVMVFGHFJFJHGFJHGF78675123HJGKHJGKJHG/ZhiDa<span class="annotation">@yangzhidadeMacBook</span>-Pro.local
+</ul>
+<h2 id="JSON">JSON</h2><ul>
+<li>若需要做压缩处理，优先选择gzip或zlib压缩方式</li>
+<li><p>解析后格式</p>
+<pre><code>{
+   "<span class="attribute">control</span>":<span class="value">{
+       "<span class="attribute">version</span>":<span class="value"><span class="string">"1.0"</span></span>,
+       "<span class="attribute">type</span>":<span class="value"><span class="number">1</span></span>,
+       "<span class="attribute">error</span>":<span class="value"><span class="number">0</span></span>,
+       "<span class="attribute">message</span>":<span class="value"><span class="string">"xxx"</span>
+   </span>}</span>,
+   "<span class="attribute">data</span>":<span class="value">{
+       "<span class="attribute">serverTime</span>":<span class="value"><span class="number">123456789</span>
+   </span>}
+</span>}
 </code></pre></li>
-<li><p>打开Github设置页面个人设置界面(Settings) - 点击Add SSH Key </p>
-<pre><code><span class="comment">//Nothing...    </span>
-</code></pre></li>
-</ol>
-
+<li><p>字段说明</p>
+</li>
+</ul>
+<pre><code>描述 |<span class="string"> key </span>|<span class="string"> value
+------------ </span>|<span class="string"> ------------- </span>|<span class="string"> ------------
+错误代码 </span>|<span class="string"> error  </span>|<span class="string"> 0：正常。小于0的为错误状态
+提示信息 </span>|<span class="string"> message </span>|<span class="string"> 像成功的一些提示信息或错误信息等。
+接口类型</span>|<span class="string">  type </span>|<span class="string">  0x01XXXX 账户类 0x02XXXX 运营类 0x03XXXX 其它预留
+数据 </span>|<span class="string">data  </span>|<span class="string"> 所有实体数据，以下涉及到有响应数据的，全部在该字段下。
+服务器时间</span>|<span class="string">  server_time</span>|<span class="string"> 默认都是有的，用于客户端时间校准等</span>
+</code></pre>
       
     </div>
     <footer>
@@ -88,13 +131,13 @@ ssh-rsa LKJLJHGJKGKYUH293189273MHJKKJH<span class="regexp">/2wmCm3cQvKm2KnacXCZ7
         
   
   <div class="categories">
-    <a href="/categories/Tools/">Tools</a>
+    <a href="/categories/Document/">Document</a>
   </div>
 
         
   
   <div class="tags">
-    <a href="/tags/Git/">Git</a>
+    <a href="/tags/http/">http</a>
   </div>
 
         
@@ -137,7 +180,7 @@ ssh-rsa LKJLJHGJKGKYUH293189273MHJKKJH<span class="regexp">/2wmCm3cQvKm2KnacXCZ7
   }(document, 'script', 'facebook-jssdk'));
 </script>
 
-<div class="fb-comments" data-href="http://ptker.com/2015/07/18/SSH-Key/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+<div class="fb-comments" data-href="http://ptker.com/2015/08/04/http-protocol/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
       
   
 </section>
