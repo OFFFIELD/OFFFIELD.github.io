@@ -73,13 +73,12 @@
 <h2 id="统计字段：">统计字段：</h2><ul>
 <li>放在User-Agent或以接口参数方式传给服务端</li>
 </ul>
-<pre><code>统计内容 |<span class="string"> key </span>|<span class="string"> value 
------------- </span>|<span class="string"> ------------- </span>|<span class="string"> ------------ 
-系统平台 </span>|<span class="string"> platform  </span>|<span class="string"> iOS/Android/WP 
-分发渠道 </span>|<span class="string"> channel </span>|<span class="string"> AppStore/百度/腾讯/小米/安智 
-程序版本 </span>|<span class="string">  version </span>|<span class="string"> 1.0.0 
-设备型号 </span>|<span class="string">deviceid  </span>|<span class="string"> iPhone/iPad/iPod/Andriod 
-用户ID (用户信息统计)</span>|<span class="string">  user_id</span>|<span class="string"> xxxx </span>
+<pre><code>统计内容 |<span class="string"> key      </span>|<span class="string"> value 
+系统平台 </span>|<span class="string"> platform </span>|<span class="string"> iOS/Android/WP 
+分发渠道 </span>|<span class="string"> channel  </span>|<span class="string"> AppStore/百度/腾讯/小米/安智 
+程序版本 </span>|<span class="string"> version  </span>|<span class="string"> 1.0.0 
+设备型号 </span>|<span class="string"> deviceid </span>|<span class="string"> iPhone/iPad/iPod/Andriod 
+其他信息 </span>|<span class="string"> xxx      </span>|<span class="string"> xxxx </span>
 </code></pre><h2 id="枚举">枚举</h2><ul>
 <li><p>均以1为起始，避免以int接收0时，无法确定是否正常接收</p>
 </li>
@@ -116,13 +115,12 @@
 <li><p>字段说明</p>
 </li>
 </ul>
-<pre><code>描述 |<span class="string"> key </span>|<span class="string"> value
------------- </span>|<span class="string"> ------------- </span>|<span class="string"> ------------
-错误代码 </span>|<span class="string"> error  </span>|<span class="string"> 0：正常。小于0的为错误状态
-提示信息 </span>|<span class="string"> message </span>|<span class="string"> 像成功的一些提示信息或错误信息等。
-接口类型</span>|<span class="string">  type </span>|<span class="string">  0x01XXXX 账户类 0x02XXXX 运营类 0x03XXXX 其它预留
-数据 </span>|<span class="string">data  </span>|<span class="string"> 所有实体数据，以下涉及到有响应数据的，全部在该字段下。
-服务器时间</span>|<span class="string">  server_time</span>|<span class="string"> 默认都是有的，用于客户端时间校准等</span>
+<pre><code>描述描述      |<span class="string"> key            </span>|<span class="string"> value
+错误代码      </span>|<span class="string"> error          </span>|<span class="string"> 0：正常。小于0的为错误状态
+提示信息      </span>|<span class="string"> message        </span>|<span class="string"> 像成功的一些提示信息或错误信息等。
+接口类型      </span>|<span class="string"> type           </span>|<span class="string"> 0x01XXXX 账户类 0x02XXXX 运营类 0x03XXXX 其它预留
+实体数据      </span>|<span class="string"> data           </span>|<span class="string"> 所有实体数据，以下涉及到有响应数据的，全部在该字段下。
+当前时间      </span>|<span class="string"> server_time    </span>|<span class="string"> 默认都是有的，用于客户端时间校准等</span>
 </code></pre>
       
     </div>
