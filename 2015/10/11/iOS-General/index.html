@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>HTTP - Protocol | Pt.Ker</title>
+  <title>iOS General | Pt.Ker</title>
   <meta name="author" content="Copyright (c) 2015年 杨志达. All rights reserved.">
   
   <meta name="description" content="iOS Developer Yang">
@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="HTTP - Protocol"/>
+  <meta property="og:title" content="iOS General"/>
   <meta property="og:site_name" content="Pt.Ker"/>
 
   
@@ -54,74 +54,133 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2015-08-04T15:06:15.000Z"><a href="/2015/08/04/http-protocol/">2015-08-04</a></time>
+        <time datetime="2015-10-11T02:35:00.000Z"><a href="/2015/10/11/iOS-General/">2015-10-11</a></time>
       
       
   
-    <h1 class="title">HTTP - Protocol</h1>
+    <h1 class="title">iOS General</h1>
   
 
     </header>
     <div class="entry">
       
-        <p>数据协议初稿<br><a id="more"></a></p>
-<h2 id="字段命名（KEY）">字段命名（KEY）</h2><ul>
-<li>字母全部小写，包括英文简称，单词之间用英文格式”_”分开，控制在3个单词之内</li>
-<li>命名与其功能，含义尽量一致或接近，避免number1,number2这种命名</li>
-<li>其它待补充</li>
+        <p>知识点总结<br><a id="more"></a></p>
+<ul>
+<li>@property<ul>
+<li>内存管理<ul>
+<li>ARC</li>
+<li>MRC</li>
+<li>CFRelease</li>
 </ul>
-<h2 id="统计字段：">统计字段：</h2><ul>
-<li>放在User-Agent或以接口参数方式传给服务端</li>
-</ul>
-<pre><code>统计内容 |<span class="string"> key      </span>|<span class="string"> value 
-系统平台 </span>|<span class="string"> platform </span>|<span class="string"> iOS/Android/WP 
-分发渠道 </span>|<span class="string"> channel  </span>|<span class="string"> AppStore/百度/腾讯/小米/安智 
-程序版本 </span>|<span class="string"> version  </span>|<span class="string"> 1.0.0 
-设备型号 </span>|<span class="string"> deviceid </span>|<span class="string"> iPhone/iPad/iPod/Andriod 
-其他信息 </span>|<span class="string"> xxx      </span>|<span class="string"> xxxx </span>
-</code></pre><h2 id="枚举">枚举</h2><ul>
-<li><p>均以1为起始，避免以int接收0时，无法确定是否正常接收</p>
 </li>
-<li><p>多选，发送端value = MyEnumValueA &amp; MyEnumValueB，接收端 BOOL isValueA = MyEnumValueA ^ value</p>
-<pre><code>typedef NS_OPTIONS(NSUInteger, MyEnum) {
-    <span class="variable">MyEnumValueA =</span> <span class="number">1</span> &lt;&lt; <span class="number">1</span>,
-    <span class="variable">MyEnumValueB =</span> <span class="number">1</span> &lt;&lt; <span class="number">2</span>,
-    <span class="variable">MyEnumValueC =</span> <span class="number">1</span> &lt;&lt; <span class="number">3</span>,
-};
-</code></pre></li>
-<li><p>单选</p>
-<pre><code><span class="keyword">typedef</span> <span class="built_in">NS_ENUM</span>(<span class="built_in">NSUInteger</span>, MyEnum) {
-   MyEnumValueA = <span class="number">1</span>,
-   MyEnumValueB,
-   MyEnumValueC,
-};
-</code></pre></li>
+<li>线程安全<ul>
+<li>数据加锁</li>
 </ul>
-<h2 id="JSON">JSON</h2><ul>
-<li>若需要做压缩处理，优先选择gzip或zlib压缩方式</li>
-<li><p>解析后格式</p>
-<pre><code>{
-   "<span class="attribute">control</span>":<span class="value">{
-       "<span class="attribute">version</span>":<span class="value"><span class="string">"1.0"</span></span>,
-       "<span class="attribute">type</span>":<span class="value"><span class="number">1</span></span>,
-       "<span class="attribute">error</span>":<span class="value"><span class="number">0</span></span>,
-       "<span class="attribute">message</span>":<span class="value"><span class="string">"xxx"</span>
-   </span>}</span>,
-   "<span class="attribute">data</span>":<span class="value">{
-       "<span class="attribute">serverTime</span>":<span class="value"><span class="number">123456789</span>
-   </span>}
-</span>}
-</code></pre></li>
-<li><p>字段说明</p>
 </li>
 </ul>
-<pre><code>描述描述      |<span class="string"> key            </span>|<span class="string"> value
-错误代码      </span>|<span class="string"> error          </span>|<span class="string"> 0：正常。小于0的为错误状态
-提示信息      </span>|<span class="string"> message        </span>|<span class="string"> 像成功的一些提示信息或错误信息等。
-接口类型      </span>|<span class="string"> type           </span>|<span class="string"> 0x01XXXX 账户类 0x02XXXX 运营类 0x03XXXX 其它预留
-实体数据      </span>|<span class="string"> data           </span>|<span class="string"> 所有实体数据，以下涉及到有响应数据的，全部在该字段下。
-当前时间      </span>|<span class="string"> server_time    </span>|<span class="string"> 默认都是有的，用于客户端时间校准等</span>
-</code></pre>
+</li>
+<li>MVC <ul>
+<li>设计模式<ul>
+<li>拆耦</li>
+<li>运营能力<ul>
+<li>功能预设、模块控制</li>
+<li>Web + Native</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>图像处理<ul>
+<li>布局</li>
+<li>动画<ul>
+<li>Timer、RunLoop</li>
+<li>三角函数</li>
+<li>运动函数<ul>
+<li>阻尼振动        </li>
+</ul>
+</li>
+</ul>
+</li>
+<li>绘画<ul>
+<li>CoreImage</li>
+<li>GPU</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>NetWork<ul>
+<li>HTTP 协议<ul>
+<li>版本控制、Api淘汰</li>
+</ul>
+</li>
+<li>多线程<ul>
+<li>CPU队列</li>
+</ul>
+</li>
+<li>数据缓存<ul>
+<li>内存缓存</li>
+<li>硬盘缓存</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>代码规范<ul>
+<li>变量、函数、枚举、block、protocol、空格、换行、分组</li>
+</ul>
+</li>
+<li>工程结构、设置<ul>
+<li>iPhone、iPad、Watch 协同开发</li>
+<li>lib、framework</li>
+<li>语言兼容<ul>
+<li>-Objc</li>
+</ul>
+</li>
+<li>递归引入<ul>
+<li>Library Search Path</li>
+</ul>
+</li>
+<li>开源管理 <ul>
+<li>手动引入</li>
+<li>CocosPods(Carthage)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>类别、继承<ul>
+<li>XXBaseClass</li>
+<li>XXClass+Costom</li>
+</ul>
+</li>
+<li>异常处理<ul>
+<li>异常保护</li>
+<li>崩溃内存地址反查</li>
+</ul>
+</li>
+<li>常用测试工具<ul>
+<li>Xcode instruments<ul>
+<li>Leaks</li>
+<li>Core Animation</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>iOS版本兼容<ul>
+<li>6 ~ 9</li>
+</ul>
+</li>
+<li>Xcode插件<ul>
+<li>VVDocumenter-Xcode</li>
+</ul>
+</li>
+<li>装逼必备<ul>
+<li>Runtime</li>
+<li>isa</li>
+<li>Darwin</li>
+</ul>
+</li>
+</ul>
+
       
     </div>
     <footer>
@@ -135,7 +194,7 @@
         
   
   <div class="tags">
-    <a href="/tags/http/">http</a>
+    <a href="/tags/iOS/">iOS</a>
   </div>
 
         
@@ -178,7 +237,7 @@
   }(document, 'script', 'facebook-jssdk'));
 </script>
 
-<div class="fb-comments" data-href="http://ptker.com/2015/08/04/http-protocol/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+<div class="fb-comments" data-href="http://ptker.com/2015/10/11/iOS-General/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
       
   
 </section>
