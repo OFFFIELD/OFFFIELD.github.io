@@ -65,110 +65,144 @@
         <p>大纲<br><a id="more"></a></p>
 <ul>
 <li>@property<ul>
+<li>readwrite, readonly</li>
+<li>strong,copy, weak, retain, assign, unsafe_unretained</li>
+<li>nonatomic, atomic</li>
+<li>nullable, nonnull</li>
+<li>@synthesize, @dynamic</li>
+</ul>
+</li>
 <li>内存管理<ul>
 <li>ARC</li>
 <li>MRC</li>
 <li>CFRelease</li>
 </ul>
 </li>
-<li>线程安全<ul>
-<li>数据加锁</li>
+<li>架构模式<ul>
+<li>MVC</li>
+<li>MVP</li>
+<li>MVVM</li>
+</ul>
+</li>
+<li>设计模式 Controller<ul>
+<li>代理模式 <ul>
+<li>Delegate + Protocol<ul>
+<li>函数回调代码块 </li>
+<li>Block</li>
+<li>观察者</li>
+<li>Observer</li>
 </ul>
 </li>
 </ul>
 </li>
-<li>MVC <ul>
-<li>设计模式<ul>
-<li>拆耦</li>
-<li>运营能力<ul>
-<li>功能预设、模块控制</li>
-<li>Web + Native</li>
+<li>消息中心<ul>
+<li>NotificationCenter<ul>
+<li>单例</li>
+<li>UIApplication</li>
 </ul>
 </li>
 </ul>
 </li>
-<li>图像处理<ul>
-<li>布局</li>
+</ul>
+</li>
+<li>模型设计 Model<ul>
+<li>业务层<ul>
+<li>Model -&gt; Controller -&gt; UI</li>
+</ul>
+</li>
+<li>模型层<ul>
+<li>Data -&gt; Json -&gt; Model</li>
+</ul>
+</li>
+<li>数据层<ul>
+<li>Socket -&gt; Data</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>用户界面 View<ul>
+<li>布局<ul>
+<li>Code</li>
+<li>AutoLayout</li>
+<li>Autoresizing</li>
+<li>Storyboard, Xib</li>
+</ul>
+</li>
+<li>绘图<ul>
+<li>UIBezierPath + Layer</li>
+<li>UIGraphicsBeginImageContextWithOptions(CGSize size, BOOL opaque, CGFloat scale) </li>
+<li>CoreImage </li>
+</ul>
+</li>
 <li>动画<ul>
-<li>Timer、RunLoop</li>
-<li>三角函数</li>
-<li>运动函数<ul>
-<li>阻尼振动        </li>
+<li>UIView animateWithDuration:animations{};</li>
+<li>CoreAnimation</li>
+<li>Timer, RunLoop</li>
 </ul>
 </li>
 </ul>
 </li>
-<li>绘画<ul>
-<li>CoreImage</li>
-<li>GPU</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>NetWork<ul>
-<li>HTTP 协议<ul>
-<li>版本控制、Api淘汰</li>
-</ul>
-</li>
-<li>多线程<ul>
-<li>CPU队列</li>
-</ul>
-</li>
-<li>数据缓存<ul>
+<li>数据缓存 Cache<ul>
 <li>内存缓存</li>
 <li>硬盘缓存</li>
 </ul>
 </li>
+<li>程序控制<ul>
+<li>数据统计, 用户行为</li>
+<li>版本控制, Api淘汰</li>
+<li>Web + Native</li>
+<li>Lua 热更新</li>
 </ul>
 </li>
-<li>代码规范<ul>
-<li>变量、函数、枚举、block、protocol、空格、换行、分组</li>
+<li>多线程<ul>
+<li>GCD</li>
+<li>NSOperationQueue</li>
+<li>NSThread</li>
 </ul>
 </li>
-<li>工程结构、设置<ul>
-<li>iPhone、iPad、Watch 协同开发</li>
-<li>lib、framework</li>
-<li>语言兼容<ul>
-<li>-Objc</li>
+<li><p>代码规范</p>
+<pre><code><span class="comment">//变量</span>
+<span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UIView</span> *calendarView;
+
+<span class="comment">//函数</span>
+- (<span class="built_in">NSString</span> *)funcWithParam:(<span class="built_in">NSString</span> *)param 
+                  NextParam:(<span class="built_in">NSString</span> *)nextParam 
+{
+    <span class="keyword">return</span> param;
+}
+
+<span class="comment">//枚举</span>
+<span class="keyword">typedef</span> <span class="built_in">NS_ENUM</span>(<span class="built_in">NSUInteger</span>, MyEnum) {
+    MyEnumValueA = <span class="number">1</span>,
+    MyEnumValueB = <span class="number">1</span> &lt;&lt; <span class="number">1</span>,
+};    
+
+<span class="comment">//Block</span>
+<span class="keyword">typedef</span> <span class="keyword">void</span>(^MacbookProBlock)(<span class="built_in">NSString</span> *userName);
+
+<span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) MacbookProBlock macbookProBlock;
+
+_macbookProBlock = ^(<span class="built_in">NSString</span> *userName) {
+  <span class="comment">//Nothing</span>
+};
+</code></pre></li>
+<li><p>代码配置和管理</p>
+<ul>
+<li>CocosPods</li>
+<li>Framework, Lib</li>
+<li>iPhone, iPad, watch 协同开发</li>
+<li>语言配置 -Objc</li>
+<li>递归引入 Library Search Path</li>
 </ul>
 </li>
-<li>递归引入<ul>
-<li>Library Search Path</li>
-</ul>
-</li>
-<li>开源管理 <ul>
-<li>手动引入</li>
-<li>CocosPods(Carthage)</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>类别、继承<ul>
-<li>XXBaseClass</li>
-<li>XXClass+Costom</li>
-</ul>
-</li>
-<li>异常处理<ul>
+<li>DeBug<ul>
 <li>异常保护</li>
 <li>崩溃内存地址反查</li>
-</ul>
-</li>
-<li>常用测试工具<ul>
 <li>Xcode instruments<ul>
 <li>Leaks</li>
 <li>Core Animation</li>
 </ul>
 </li>
-</ul>
-</li>
-<li>iOS版本兼容<ul>
-<li>6 ~ 9</li>
-</ul>
-</li>
-<li>Xcode插件<ul>
-<li>VVDocumenter-Xcode</li>
 </ul>
 </li>
 </ul>
@@ -250,8 +284,6 @@
   
     <li><a href="/categories/Document/">Document</a><small>4</small></li>
   
-    <li><a href="/categories/舞吧/">舞吧</a><small>0</small></li>
-  
   </ul>
 </div>
 
@@ -262,8 +294,6 @@
   <ul class="entry">
   
     <li><a href="/tags/Document/">Document</a><small>4</small></li>
-  
-    <li><a href="/tags/舞吧/">舞吧</a><small>0</small></li>
   
   </ul>
 </div>
